@@ -7,11 +7,14 @@ export default function App() {
   const [courseGoals, setCourseGoals] = useState([]);
 
   function addGoalHandler(enteredGoalText) {
-    setEnteredGoalText('');
     setCourseGoals((prevGoals) => [
       ...prevGoals,
       { text: enteredGoalText, key: Math.random().toString() },
     ]);
+  }
+
+  function deleteGoalHandler(id) {
+    setCourseGoals((prevGoals) => prevGoals.filter((goal) => goal.key !== id));
   }
 
   return (
@@ -21,7 +24,13 @@ export default function App() {
         <FlatList
           data={courseGoals}
           renderItem={(itemData) => {
-            return <GoalItem text={itemData.item.text} />;
+            return (
+              <GoalItem
+                onDeleteItem={deleteGoalHandler}
+                id={itemData.item.key}
+                text={itemData.item.text}
+              />
+            );
           }}
           alwaysBounceVertical={false}
         />

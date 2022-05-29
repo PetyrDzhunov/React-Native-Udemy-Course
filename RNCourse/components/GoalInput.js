@@ -9,6 +9,9 @@ function GoalInput({ onAddGoal }) {
   }
 
   function addGoalHandler() {
+    if (enteredGoalText === '') {
+      return;
+    }
     onAddGoal(enteredGoalText);
     setEnteredGoalText('');
   }
